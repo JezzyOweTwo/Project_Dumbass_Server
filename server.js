@@ -13,10 +13,10 @@ const adminsRouter = require('./api/routes/admins');
 mongoose.connect(process.env.DATABASE_URL);             // connects to the database
 
 // middleware
-server.use(morgan('dev'));                              // logs requests to console
-server.use(cors());
-server.use(bodyParser.urlencoded({extended:false}));    // allows for simple url body parsing
-server.use(bodyParser.json());                          // allows for simple JSON body parsing
+// server.use(morgan('dev'));                              // logs requests to console
+// server.use(cors());
+// server.use(bodyParser.urlencoded({extended:false}));    // allows for simple url body parsing
+// server.use(bodyParser.json());                          // allows for simple JSON body parsing
 
 // routes
 server.use('/categories',categoryRouter);               // routes video requests to corresponding router
@@ -25,16 +25,9 @@ server.use('/admins',adminsRouter);                     // routes video requests
 
 // error handling
 server.use((req,res,next)=>{
-    const error = new Error('That route don exist, fuckin dumbass nigga');
-    res.status(404);
-    next(error) // calls the generic error handling method 
+    res.status(404).json({message:"That route does not exist."});   // defaults to the error code of the other method, and defaults to 500 if none was present. 
+    console.error("That route does not exist.");  
 });
-
-// generic error handling method 
-server.use((error,req,res,next)=> {
-    res.status(error.status||500).json(error.message);   // defaults to the error code of the other method, and defaults to 500 if none was present. 
-    console.error(error);
-})
 
 // database error handling
 db.on('error',(error)=>{console.error(error)});
