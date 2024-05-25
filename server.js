@@ -7,7 +7,6 @@ const cors = require('cors');
 const db = mongoose.connection;
 const port = process.env.PORT||6969;
 const server = express();
-const allowCors = require('./api/middleware/allowCors');
 const categoryRouter = require('./api/routes/categories');
 const userRouter = require('./api/routes/users');
 const adminsRouter = require('./api/routes/admins');
@@ -15,7 +14,7 @@ mongoose.connect(process.env.DATABASE_URL);             // connects to the datab
 
 // middleware
 server.use(morgan('dev'));                              // logs requests to console
-server.use(allowCors);
+server.use(cors());
 server.use(bodyParser.urlencoded({extended:false}));    // allows for simple url body parsing
 server.use(bodyParser.json());                          // allows for simple JSON body parsing
 
