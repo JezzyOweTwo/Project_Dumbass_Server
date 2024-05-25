@@ -12,11 +12,11 @@ const userRouter = require('./api/routes/users');
 const adminsRouter = require('./api/routes/admins');
 mongoose.connect(process.env.DATABASE_URL);             // connects to the database
 
-// middleware
-// server.use(morgan('dev'));                              // logs requests to console
-// server.use(cors());
-// server.use(bodyParser.urlencoded({extended:false}));    // allows for simple url body parsing
-// server.use(bodyParser.json());                          // allows for simple JSON body parsing
+//middleware
+server.use(morgan('dev'));                              // logs requests to console
+server.use(cors());
+server.use(bodyParser.urlencoded({extended:false}));    // allows for simple url body parsing
+server.use(bodyParser.json());                          // allows for simple JSON body parsing
 
 // routes
 server.use('/categories',categoryRouter);               // routes video requests to corresponding router
