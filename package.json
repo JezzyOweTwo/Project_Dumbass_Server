@@ -4,8 +4,7 @@
   "description": "Project Dumb Ass Server",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "vercel-build":"echo testing"
+    "start": "nodemon server.js"
   },
   "author": "Jeziah Francis",
   "license": "ISC",
