@@ -1,4 +1,5 @@
 require('dotenv').config();
+const jwt = require('jsonwebtoken');
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
@@ -17,6 +18,14 @@ server.use(morgan('dev'));                              // logs requests to cons
 server.use(cors());
 server.use(bodyParser.urlencoded({extended:false}));    // allows for simple url body parsing
 server.use(bodyParser.json());                          // allows for simple JSON body parsing
+
+// Generates original AUTH_KEY for other users on the server.
+const payload = {
+    username: 'JezzyServerAdmin',
+    password: 'TotallySecureServerPassword'
+}
+const token = jwt.sign(payload, process.env.JWT_KEY);
+console.log(token);
 
 // routes
 server.use('/categories',categoryRouter);               // routes video requests to corresponding router
