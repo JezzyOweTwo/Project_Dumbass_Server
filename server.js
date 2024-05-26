@@ -38,7 +38,7 @@ db.on('error',(error)=>{console.error(error)});
 server.listen(port);
 db.once('open',()=>{
     console.log("---------------------------\nServer sucessfully connected to: "+process.env.DATABASE_URL+"\n-----------------------------");
-    console.log("Server is listening on port: "+ port);
+    console.log("Server is listening on port: "+ port+"\n------------------------------");
     const payload = {
         username: 'JezzyServerAdmin',
         password: 'TotallySecureServerPassword'
