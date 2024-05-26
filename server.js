@@ -20,12 +20,7 @@ server.use(bodyParser.urlencoded({extended:false}));    // allows for simple url
 server.use(bodyParser.json());                          // allows for simple JSON body parsing
 
 // Generates original AUTH_KEY for other users on the server.
-const payload = {
-    username: 'JezzyServerAdmin',
-    password: 'TotallySecureServerPassword'
-}
-const token = jwt.sign(payload, process.env.JWT_KEY);
-console.log(token);
+
 
 // routes
 server.use('/categories',categoryRouter);               // routes video requests to corresponding router
@@ -40,5 +35,14 @@ server.use((req,res,next)=>{
 
 // database error handling
 db.on('error',(error)=>{console.error(error)});
-db.once('open',()=>{console.log("---------------------------\nServer sucessfully connected to: "+process.env.DATABASE_URL+"\n-----------------------------")});
-server.listen(port, () => { console.log("Server is listening on port: "+ port)});
+server.listen(port);
+db.once('open',()=>{
+    console.log("---------------------------\nServer sucessfully connected to: "+process.env.DATABASE_URL+"\n-----------------------------");
+    console.log("Server is listening on port: "+ port);
+    const payload = {
+        username: 'JezzyServerAdmin',
+        password: 'TotallySecureServerPassword'
+    }
+    const token = jwt.sign(payload, process.env.JWT_KEY);
+    console.log("AUTH_TOKEN: "+token);
+});
